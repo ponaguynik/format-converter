@@ -11,15 +11,15 @@ public class ShapeFactory {
     private ShapeFactory() {
     }
 
-    public Shape getCircle() {
+    public Circle getCircle() {
         return new Circle();
     }
 
-    public Shape getTriangle() {
+    public Triangle getTriangle() {
         return new Triangle();
     }
 
-    public Shape getSquare() {
+    public Square getSquare() {
         return new Square();
     }
 }

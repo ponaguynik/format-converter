@@ -2,11 +2,10 @@ package com.ponagayba.model.group;
 
 import com.ponagayba.converter.Container;
 import com.ponagayba.model.shape.Shape;
+import com.ponagayba.util.DoubleNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Group extends Shape implements Container {
 
@@ -25,14 +24,19 @@ public class Group extends Shape implements Container {
     }
 
     @Override
-    public Map<String, Object> getParams() {
-        Map<String, Object> result = new HashMap<>();
+    public List<DoubleNode<String, Object>> getParams() {
+        List<DoubleNode<String, Object>> result = new ArrayList<>();
         for (Shape shape : shapes) {
             if (shape instanceof Group)
-                result.put("group", shape);
+                result.add(new DoubleNode<>("group", shape));
             else
-                result.put("shape", shape);
+                result.add(new DoubleNode<>("shape", shape));
         }
         return result;
+    }
+
+    @Override
+    public String rootName() {
+        return "group";
     }
 }

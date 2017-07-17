@@ -17,14 +17,14 @@ public class XMLBuilder implements FormatBuilder {
     }
 
     @Override
-    public FormatBuilder startHolder(String name) {
+    public XMLBuilder startArray(String name) {
         result.append(tab()).append(String.format("<%s>\n", name));
         level++;
         return this;
     }
 
     @Override
-    public FormatBuilder endHolder(String name, boolean next) {
+    public XMLBuilder endArray(String name, boolean next) {
         if (level > 0)
             --level;
         result.append(tab()).append(String.format("</%s>\n", name));
@@ -32,17 +32,17 @@ public class XMLBuilder implements FormatBuilder {
     }
 
     @Override
-    public FormatBuilder startElement(String name) {
-        return startHolder(name);
+    public XMLBuilder startObject(String name) {
+        return startArray(name);
     }
 
     @Override
-    public FormatBuilder endElement(String name, boolean next) {
-        return endHolder(name, next);
+    public XMLBuilder endObject(String name, boolean next) {
+        return endArray(name, next);
     }
 
     @Override
-    public XMLBuilder addParam(String name, String value, boolean next) {
+    public XMLBuilder addParam(String name, Object value, boolean next) {
         result.append(tab()).append(String.format("<%s>%s</%s>\n", name, value, name));
         return this;
     }

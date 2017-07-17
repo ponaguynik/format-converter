@@ -1,7 +1,9 @@
 package com.ponagayba.model.shape;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.ponagayba.util.DoubleNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Triangle extends Shape {
 
@@ -9,13 +11,16 @@ public class Triangle extends Shape {
     private double side2;
     private double side3;
 
+    Triangle() {
+    }
+
     @Override
-    public Map<String, Object> getParams() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("name", name);
-        result.put("side1", side1);
-        result.put("side2", side2);
-        result.put("side3", side3);
+    public List<DoubleNode<String, Object>> getParams() {
+        List<DoubleNode<String, Object>> result = new ArrayList<>();
+        result.add(new DoubleNode<>("name", name));
+        result.add(new DoubleNode<>("side1", side1));
+        result.add(new DoubleNode<>("side2", side2));
+        result.add(new DoubleNode<>("side3", side3));
         return result;
     }
 

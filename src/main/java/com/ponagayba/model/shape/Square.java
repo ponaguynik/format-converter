@@ -1,17 +1,22 @@
 package com.ponagayba.model.shape;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.ponagayba.util.DoubleNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Square extends Shape {
 
     private double side;
 
+    Square() {
+    }
+
     @Override
-    public Map<String, Object> getParams() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("name", name);
-        result.put("side", side);
+    public List<DoubleNode<String, Object>> getParams() {
+        List<DoubleNode<String, Object>> result = new ArrayList<>();
+        result.add(new DoubleNode<>("name", name));
+        result.add(new DoubleNode<>("side", side));
         return result;
     }
 

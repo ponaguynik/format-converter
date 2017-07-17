@@ -14,32 +14,35 @@ public class JSONBuilder implements FormatBuilder {
     }
 
     @Override
-    public FormatBuilder startHolder(String name) {
-        result.append(tab()).append(String.format("{\"%s\": [\n", name));
+    public JSONBuilder startArray(String name) {
+        result.append(tab()).append(String.format("\"%s\": [\n", name));
         level++;
         return this;
     }
 
     @Override
-    public FormatBuilder endHolder(String name, boolean next) {
+    public JSONBuilder endArray(String name, boolean next) {
         if (level > 0)
             --level;
         if (next)
-            result.append(tab()).append("]},\n");
+            result.append(tab()).append("],\n");
         else
-            result.append(tab()).append("]}\n");
+            result.append(tab()).append("]\n");
         return this;
     }
 
     @Override
-    public FormatBuilder startElement(String name) {
-        result.append(tab()).append(String.format("\"%s\": {\n", name));
+    public JSONBuilder startObject(String name) {
+        if (name == null || name.equals(""))
+            result.append(tab()).append("{\n");
+        else
+            result.append(tab()).append(String.format("\"%s\": {\n", name));
         level++;
         return this;
     }
 
     @Override
-    public FormatBuilder endElement(String name, boolean next) {
+    public JSONBuilder endObject(String name, boolean next) {
         if (level > 0)
             --level;
         if (next)
@@ -49,10 +52,12 @@ public class JSONBuilder implements FormatBuilder {
         return this;
     }
 
-
     @Override
-    public JSONBuilder addParam(String name, String value, boolean next) {
-        result.append(tab()).append(String.format("\"%s\": \"%s\"", name, value));
+    public JSONBuilder addParam(String name, Object value, boolean next) {
+        if (value == null || value instanceof Integer || value instanceof Double || value instanceof Boolean)
+            result.append(tab()).append(String.format("\"%s\": %s", name, value));
+        else
+            result.append(tab()).append(String.format("\"%s\": \"%s\"", name, value));
         if (next)
             result.append(",\n");
         else

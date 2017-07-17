@@ -1,7 +1,6 @@
 package com.ponagayba.converter;
 
 public class ConverterFactory {
-
     private static ConverterFactory factory = new ConverterFactory();
 
     public static ConverterFactory getInstance() {
@@ -11,11 +10,11 @@ public class ConverterFactory {
     private ConverterFactory() {
     }
 
-    public JSONConverter getJSONConverter() {
-        return new JSONConverter();
+    public Converter getXMLConverter() {
+        return new XMLConverter();
     }
 
-    public XMLConverter getXMLConverter() {
-        return new XMLConverter();
+    public Converter getJSONConverter() {
+        return new JSONConverter();
     }
 }

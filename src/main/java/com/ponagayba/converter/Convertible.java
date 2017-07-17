@@ -1,11 +1,13 @@
 package com.ponagayba.converter;
 
 
-import java.util.Map;
+import com.ponagayba.util.DoubleNode;
+
+import java.util.List;
 
 public interface Convertible {
 
     String rootName();
 
-    Map<String, Object> getParams();
+    List<DoubleNode<String, Object>> getParams();
 }
