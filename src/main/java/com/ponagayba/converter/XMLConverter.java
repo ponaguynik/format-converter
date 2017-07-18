@@ -9,34 +9,36 @@ import java.util.List;
 
 public class XMLConverter implements Converter {
 
+    private FormatBuilder builder;
+
     XMLConverter() {
+        builder = FormatBuilderFactory.getInstance().getXMLBuilder();
     }
 
     @Override
     public XML convert(Convertible object) {
-        FormatBuilder builder = FormatBuilderFactory.getInstance().getXMLBuilder();
         builder.addHeader();
-        fillUp(object, builder);
+        fillUp(object);
         return (XML) builder.getResult();
     }
 
-    private void fillUp(Convertible object, FormatBuilder builder) {
+    private void fillUp(Convertible object) {
         if (object instanceof Container) {
             builder.startArray(object.rootName());
-            build(object, builder);
+            build(object);
             builder.endArray(object.rootName(), false);
         } else {
             builder.startObject(object.rootName());
-            build(object, builder);
+            build(object);
             builder.endObject(object.rootName(), false);
         }
     }
 
-    private void build(Convertible object, FormatBuilder builder) {
+    private void build(Convertible object) {
         List<DoubleNode<String, Object>> params = object.getParams();
         for (DoubleNode<String, Object> param : params) {
             if (param.getSecond() instanceof Convertible)
-                fillUp((Convertible) param.getSecond(), builder);
+                fillUp((Convertible) param.getSecond());
             else
                 builder.addParam(param.getFirst(), param.getSecond().toString(), false);
         }
