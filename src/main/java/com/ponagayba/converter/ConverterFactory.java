@@ -10,11 +10,11 @@ public class ConverterFactory {
     private ConverterFactory() {
     }
 
-    public Converter getXMLConverter() {
+    public XMLConverter getXMLConverter() {
         return new XMLConverter();
     }
 
-    public Converter getJSONConverter() {
+    public JSONConverter getJSONConverter() {
         return new JSONConverter();
     }
 }
